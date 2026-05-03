@@ -7,8 +7,9 @@ public class ScoresMockData : ICsvMockData
 {
     public CsvTestCase TestCase => new()
     {
-        SourceData = CreateScoresTable(),
-        ExpectedNotation = CreateScoresCsvNotation(),
+        Name = "Scores",
+        Data = CreateScoresTable(),
+        CsvNotation = CreateScoresCsvNotation(),
     };
     
     private static DataTable CreateScoresTable()

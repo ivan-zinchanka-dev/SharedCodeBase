@@ -5,7 +5,7 @@ using JanZi.Csv.Writing;
 namespace JanZi.Csv.Tests.Writing;
 
 [TestClass]
-public sealed class CsvStringWriterTests
+public sealed class CsvFileWriterTests
 {
     private static IEnumerable<object[]> TestCases { get; } = new[]
     {
@@ -18,8 +18,12 @@ public sealed class CsvStringWriterTests
     [DynamicData(nameof(TestCases))]
     public void ShouldWriteCorrectly(CsvTestCase testCase)
     {
-        var stringWriter = new CsvStringWriter();
-        string csvNotation = stringWriter.Write(testCase.Data);
+        string filePath = Path.Combine(Config.OutputDirectory, $"Sync_{testCase.Name}.csv");
+        
+        var fileWriter = new CsvFileWriter();
+        fileWriter.Write(filePath, testCase.Data);
+
+        string csvNotation = File.ReadAllText(filePath);
         Console.WriteLine(csvNotation);
         
         Assert.AreEqual(testCase.CsvNotation, csvNotation);
@@ -29,8 +33,12 @@ public sealed class CsvStringWriterTests
     [DynamicData(nameof(TestCases))]
     public async Task ShouldWriteAsyncCorrectly(CsvTestCase testCase)
     {
-        var stringWriter = new CsvStringWriter();
-        string csvNotation = await stringWriter.WriteAsync(testCase.Data);
+        string filePath = Path.Combine(Config.OutputDirectory, $"Async_{testCase.Name}.csv");
+        
+        var fileWriter = new CsvFileWriter();
+        await fileWriter.WriteAsync(filePath, testCase.Data);
+
+        string csvNotation = await File.ReadAllTextAsync(filePath);
         Console.WriteLine(csvNotation);
         
         Assert.AreEqual(testCase.CsvNotation, csvNotation);
