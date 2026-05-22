@@ -2,6 +2,10 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
+        <Title>JanZi.Csv</Title>
+        <Authors>Jan-Z</Authors>
+        <Description>A set of helper services for reading and writing CSV files using the DataTable class.</Description>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
 </Project>
